@@ -32,6 +32,9 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private Button buttonRead;
+    
+    @FXML
+    private Button buttonSearch;
 
     @FXML
     private Button buttonReadByID;
@@ -162,7 +165,16 @@ public class FXMLDocumentController implements Initializable {
             System.out.println(s.getId() + " " + s.getName() + " " + s.getCgpa());
         }
     }
+    
+    
+    
+    
+        @FXML
+    private void handleButtonAction2(ActionEvent event) {
+        System.out.println("clicked");
 
+    }
+    
     // Database manager
     EntityManager manager;
 
