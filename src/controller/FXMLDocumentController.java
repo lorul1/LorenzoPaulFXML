@@ -2,22 +2,35 @@
  * The following blocks of code were copied from quiz three
  */
 package controller;
-
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Scanner;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-import model.Student;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import java.util.Scanner;
+import javafx.collections.FXCollections;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javax.persistence.Query;
+import model.Student;
 
 public class FXMLDocumentController implements Initializable {
 
@@ -47,6 +60,51 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private Button buttonReadByNameCGPA;
+    
+ // The following block of code was copied and modified from the quiz 4 source code, it is not fully my own work
+     @FXML
+    private TextField textboxNames;
+    @FXML
+    private TableView<Student> studentTable;
+    @FXML
+    private TableColumn<Student, String> name;
+    @FXML
+    private TableColumn<Student, Integer> id;
+    @FXML
+    private TableColumn<Student, Float> cgpa;
+
+    private ObservableList<Student> studentData;
+    public void setTableData(List<Student> studentList) {
+
+        studentData = FXCollections.observableArrayList();
+        studentList.forEach(s -> {
+            studentData.add(s);
+        });
+        studentTable.setItems(studentData);
+        studentTable.refresh(); }
+
+    
+    
+    @FXML
+    void searchWithName(ActionEvent event) {
+        System.out.println("You clicked seach! ");    
+        String name = textboxNames.getText();
+        List<Student> students = readByName(name);
+        if (students == null || students.isEmpty()) {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Information Box");
+            alert.setHeaderText("Writing heading");
+            alert.setContentText("There is no No student");
+            alert.showAndWait();
+        } else {
+
+            // setting the table
+            setTableData(students);
+        }
+    }
+    
+    
+
 
     @FXML
     void createStudent(ActionEvent event) {
@@ -171,7 +229,7 @@ public class FXMLDocumentController implements Initializable {
     
         @FXML
     private void handleButtonAction2(ActionEvent event) {
-        System.out.println("clicked");
+        System.out.println("You clicked me!");
 
     }
     
