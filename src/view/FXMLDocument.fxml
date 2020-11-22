@@ -21,16 +21,14 @@
     
           <TextField fx:id="textboxNames" layoutX="260.0" layoutY="187.0" prefHeight="27.0" prefWidth="217.0" />
       <Label layoutX="140.0" layoutY="192.0" prefHeight="17.0" prefWidth="105.0" text="Search With Name:" />
-      <Button layoutX="488.0" layoutY="188.0" mnemonicParsing="false" onAction="#searchWithName" text="Search" />
+      <Button layoutX="488.0" layoutY="153.0" mnemonicParsing="false" onAction="#searchWithName" text="Search" />
       <TableView fx:id="studentTable" editable="true" layoutX="28.0" layoutY="234.0" prefHeight="131.0" prefWidth="546.0">
          <columns>
-            <TableColumn fx:id="id" prefWidth="69.0" text="ID" />
+            <TableColumn fx:id="id" prefWidth="69.0" text="ID Number" />
             <TableColumn fx:id="name" prefWidth="271.0" text="Name" />
-            <TableColumn fx:id="cgpa" prefWidth="71.0" text="CGPA" />
+            <TableColumn fx:id="cgpa" prefWidth="71.0" text="GPA" />
          </columns>
       </TableView>
-    
-    
-    
+      <Button layoutX="488.0" layoutY="100.0" mnemonicParsing="false" onAction="#searchWithNameAdvancedAction" text="Advance Search" />
     </children>
 </AnchorPane>

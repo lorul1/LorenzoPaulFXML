@@ -104,6 +104,22 @@ public class FXMLDocumentController implements Initializable {
     }
     
     
+     // The following block of code was copied and modified from the quiz 4 source code, it is not fully my own work
+    @FXML
+    void searchWithNameAdvancedAction(ActionEvent event) {
+        System.out.println("clicked");       
+        String name = textboxNames.getText();
+        List<Student> students = readWithNameAdvanced(name);
+        if (students == null || students.isEmpty()) {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Information Dialog Box");// line 2
+            alert.setHeaderText("This is header section to write heading");// line 3
+            alert.setContentText("No student");// line 4
+            alert.showAndWait(); // line 5
+        } else {
+            setTableData(students);
+        }
+    }
 
 
     @FXML
@@ -166,6 +182,17 @@ public class FXMLDocumentController implements Initializable {
         System.out.println(s.toString());
 
     }
+   
+     // The following block of code was copied and modified from the quiz 4 source code, it is not fully my own work
+    public List<Student> readWithNameAdvanced(String name) {
+        Query query = manager.createNamedQuery("Student.findWithNameAdvanced");
+        query.setParameter("name", name);
+        List<Student> students = query.getResultList();
+        for (Student student : students) {
+            System.out.println(student.getId() + " " + student.getName() + " " + student.getCgpa());
+        }
+        return students;
+    }
 
     @FXML
     void readByNameCGPA(ActionEvent event) {
@@ -179,9 +206,8 @@ public class FXMLDocumentController implements Initializable {
         System.out.println("Enter CPGA:");
         double cgpa = input.nextDouble();
         List<Student> students =  readByNameAndCGPA(name, cgpa);
-
     }
-
+    
     @FXML
     void readStudent(ActionEvent event) {
 
@@ -241,7 +267,10 @@ public class FXMLDocumentController implements Initializable {
         // loading students from database
         //database reference: "LorenzoPaulFXPU"
         manager = (EntityManager) Persistence.createEntityManagerFactory("LorenzoPaulFXPU").createEntityManager();
-
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        cgpa.setCellValueFactory(new PropertyValueFactory<>("cgpa"));
+        studentTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
     /*
